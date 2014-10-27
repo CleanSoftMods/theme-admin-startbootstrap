@@ -29,17 +29,21 @@ return array(
             ');
         },
 
-        'asset' => function ($asset) {
-            $asset->cook('datagrid', function ($asset) {
-                $asset->add('tempojs', '/packages/cartalyst/data-grid/js/tempo.js', array('app.js'));
-                $asset->add('datagridjs', '/packages/cartalyst/data-grid/js/data-grid.js', array('app.js', 'tempojs'));
+        'asset' => function ($theme) {
+            $theme->cook('datagrid', function ($theme) {
+                $theme->add('tempojs', '/packages/cartalyst/data-grid/js/tempo.js', array('app.js'));
+                $theme->add('datagridjs', '/packages/cartalyst/data-grid/js/data-grid.js', array('app.js', 'tempojs'));
             });
+
+            Assets::add('admin');
+
+            $theme->usePath()->add('base', 'css/sb-admin.css');
+            $theme->usePath()->add('sb-admin.js', 'js/sb-admin.js');
+            $theme->usePath()->add('application.js', 'js/app/application.js');
         },
 
+        // add dropdown-menu classes and such for the bootstrap toggle
         'beforeRenderTheme' => function ($theme) {
-            $theme->asset()->usePath()->add('base', 'css/sb-admin.css', array('bs3.css', 'jasny-bs3.css'));
-
-            // add dropdown-menu classes and such for the bootstrap toggle
             Menu::handler('acp')->addClass('nav')->id('side-menu');
 
             Menu::handler('acp')
@@ -69,16 +73,6 @@ return array(
 
             // set the nav up for the sidenav
             Menu::handler('acp.config_menu')->addClass('nav');
-        },
-
-        'beforeRenderLayout' => array(
-            'default' => function ($theme) {
-                Assets::add('admin');
-                //$theme->asset()->usePath()->add('metisMenu.js', 'js/jquery.metisMenu.js');
-                $theme->asset()->usePath()->add('sb-admin.js', 'js/sb-admin.js');
-                $theme->asset()->usePath()->add('app.js', 'js/app/application.js', array('bs3.js', 'jasny-bs3.js'));
-                $theme->asset()->usePath()->add('modernizr', 'js/modernizr.js');
-            }
-        )
+        }
     )
 );
