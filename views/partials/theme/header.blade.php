@@ -11,6 +11,7 @@
         </a>
     </div>
 
+    @if (!Auth::guest())
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -21,6 +22,7 @@
             </ul>
         </li>
     </ul>
+    @endif
 </nav>
 
 @if( !Auth::guest() && Auth::user()->isAdmin() )
