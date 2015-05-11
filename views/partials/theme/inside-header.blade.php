@@ -11,5 +11,5 @@
         @endif
         <h1>{{ Theme::place('title') }}</h1>
     </div>
-    {{ Theme::breadcrumb()->render() }}
-    {{ Theme::partial('theme.msgs') }}
+    {!! Theme::breadcrumb()->render() !!}
+    {!! Theme::partial('theme.msgs') !!}

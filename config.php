@@ -2,18 +2,12 @@
 
 return array(
     // theme info
-    'name'    => 'default-admin',
-    'author'  => 'Dan Aldridge',
-    'site'    => 'http://cysha.co.uk',
-    'type'    => 'backend',
-    'version' => '1.0',
-
-    // theme options
-    'inherit' => 'default', //default
+    'name'    => 'default_admin',
+    'inherit' => null,
 
     'events' => array(
         'before' => function ($theme) {
-            $theme->setTitle( Config::get('app.site-name').' Admin Panel');
+            $theme->setTitle(config('core::app.site-name').' Admin Panel');
 
             // Breadcrumb template.
             $theme->breadcrumb()->setTemplate('
@@ -30,26 +24,19 @@ return array(
         },
 
         'asset' => function ($theme) {
-            $theme->cook('datagrid', function ($theme) {
-                $theme->add('tempojs', '/packages/cartalyst/data-grid/js/tempo.js', array('app.js'));
-                $theme->add('datagridjs', '/packages/cartalyst/data-grid/js/data-grid.js', array('app.js', 'tempojs'));
-            });
-
-            Assets::add('admin');
-
-            $theme->usePath()->add('base', 'css/sb-admin.css');
-            $theme->usePath()->add('sb-admin.js', 'js/sb-admin.js');
-            $theme->usePath()->add('application.js', 'js/app/application.js');
+            $theme->add('app', 'themes/default_admin/css/app.css');
+            $theme->add('all.js', 'themes/default_admin/js/all.js');
         },
 
         // add dropdown-menu classes and such for the bootstrap toggle
         'beforeRenderTheme' => function ($theme) {
+            return;
             Menu::handler('acp')->addClass('nav')->id('side-menu');
 
             Menu::handler('acp')
                 ->getAllItemLists()
                 ->map(function ($itemList) {
-                    if( $itemList->getParent() !== null && $itemList->hasChildren() ) {
+                    if ($itemList->getParent() !== null && $itemList->hasChildren()) {
                         $itemList->addClass('nav nav-second-level');
                     }
                 });
@@ -58,17 +45,9 @@ return array(
             Menu::handler('acp')
                 ->getItemsByContentType('Menu\Items\Contents\Link')
                 ->map(function ($item) {
-                    if( $item->hasChildren() ) {
+                    if ($item->hasChildren()) {
                         $item->getValue()->addClass('text-center title');
-                        //$item->getValue()->setValue($item->getValue()->getValue().' <span class="fa arrow"></span>');
                     }
-
-                    // if( $item->getElement() == 'li' ){
-                    //     if( $item->getValue()->getValue() === '__DIVIDER__' ){
-                    //         $item->getValue()->setValue('<hr/>');
-                    //         $item->addClass('divider');
-                    //     }
-                    // }
                 });
 
             // set the nav up for the sidenav

@@ -6,8 +6,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ URL::route('pxcms.admin.index') }}">
-            {{ Config::get('core::app.site-name') }}
+        <a class="navbar-brand" href="{{ route('pxcms.admin.index') }}">
+            {{ config('core::app.site-name') }}
         </a>
     </div>
 
@@ -15,20 +15,21 @@
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> {{ Auth::user()->username }} <i class="fa fa-caret-down"></i>
+                <i class="fa fa-user fa-fw"></i> {{ Auth::user()->screenname }} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="{{ URL::Route('pxcms.user.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="{{ route('pxcms.pages.home') }}"><i class="fa fa-external-link fa-fw" target="_blank"></i> Site Home</a></li>
+                <li><a href="{{ route('pxcms.admin.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>
         </li>
     </ul>
     @endif
 </nav>
 
-@if( !Auth::guest() && Auth::user()->isAdmin() )
+@if(!Auth::guest() && Auth::user()->isAdmin())
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-    {{ Menu::handler('acp')->render() }}
+    {{-- {!! Menu::handler('acp')->render() !!} --}}
     </div>
 </nav>
 @endif

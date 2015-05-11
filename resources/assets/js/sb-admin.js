@@ -1,7 +1,3 @@
-$(function() {
-    //$('#side-menu').metisMenu();
-});
-
 //Collapses the sidebar on window resize
 $(function() {
 

@@ -32,9 +32,10 @@
 })(window.jQuery);
 
 function initBS(){
-    //jQuery('[type="checkbox"]').each(function () { jQuery(this).checkbox(); });
-    //jQuery('[type="radio"]').each(function () { jQuery(this).radio(); });
 
+    if( jQuery('[data-toggle="dropdown"]').length ){
+        jQuery('[data-toggle="dropdown"]').dropdown();
+    }
     if( jQuery('[data-toggle="tooltip"]').length ){
         jQuery('[data-toggle="tooltip"]').tooltip();
     }
