@@ -30,7 +30,6 @@ return array(
 
         // add dropdown-menu classes and such for the bootstrap toggle
         'beforeRenderTheme' => function ($theme) {
-            return;
             Menu::handler('acp')->addClass('nav')->id('side-menu');
 
             Menu::handler('acp')
