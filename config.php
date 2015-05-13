@@ -7,7 +7,7 @@ return array(
 
     'events' => array(
         'before' => function ($theme) {
-            $theme->setTitle(config('core::app.site-name').' Admin Panel');
+            $theme->setTitle(config('cms.core.app.site-name').' Admin Panel');
 
             // Breadcrumb template.
             $theme->breadcrumb()->setTemplate('

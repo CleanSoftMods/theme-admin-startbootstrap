@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{ route('pxcms.admin.index') }}">
-            {{ config('core::app.site-name') }}
+            {{ config('cms.core.app.site-name') }}
         </a>
     </div>
 
