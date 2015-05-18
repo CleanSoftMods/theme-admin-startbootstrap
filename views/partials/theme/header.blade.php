@@ -19,7 +19,7 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="{{ route('pxcms.pages.home') }}"><i class="fa fa-external-link fa-fw" target="_blank"></i> Site Home</a></li>
-                <li><a href="{{ route('pxcms.admin.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="{{ route('pxcms.user.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
             </ul>
         </li>
     </ul>
