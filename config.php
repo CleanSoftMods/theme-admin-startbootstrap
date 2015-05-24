@@ -25,7 +25,7 @@ return [
         'asset' => function ($theme) {
             $themeName = config('cms.core.app.themes.backend');
             $theme->add('css', 'themes/'.$themeName.'/css/app.css');
-            $theme->container('footer')->add('js', 'themes/'.$themeName.'/js/all.js');
+            $theme->add('js', 'themes/'.$themeName.'/js/all.js');
         },
 
         // add dropdown-menu classes and such for the bootstrap toggle
