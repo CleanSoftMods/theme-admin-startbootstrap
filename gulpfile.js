@@ -35,6 +35,7 @@ elixir(function(mix) {
         'assets/vendor/bootstrap/dist/js/bootstrap.js',
         'assets/js/jquery.metisMenu.js',
         'assets/js/sb-admin.js',
+        'assets/js/app/dependencies.js',
         'assets/js/app/application.js'
     ], null, 'resources');
     mix.copy('resources/assets/vendor/font-awesome/fonts', 'assets/fonts');
