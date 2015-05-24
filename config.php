@@ -2,7 +2,7 @@
 
 return [
     'name'    => 'default_admin',
-    'inherit' => null,
+    'inherit' => 'default',
 
     'events' => [
         'before' => function ($theme) {
