@@ -29,7 +29,7 @@
 @if(!Auth::guest() && Auth::user()->isAdmin())
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-    {!! Menu::handler('acp')->render() !!}
+        @menu('backend_sidebar')
     </div>
 </nav>
 @endif
