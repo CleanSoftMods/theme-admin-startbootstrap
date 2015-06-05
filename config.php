@@ -49,8 +49,19 @@ return [
                     }
                 });
 
-            // set the nav up for the sidenav
-            Menu::handler('backend_config_menu')->addClass('nav');
+            // grab the inline navs
+            $menuKeys = [];
+            foreach (get_array_column(config('cms'), 'menus') as $module => $menus) {
+                $menuKeys = array_merge($menuKeys, array_keys($menus));
+            }
+            $menuKeys = array_unique($menuKeys);
+            $menuKeys = array_filter($menuKeys, function ($name) {
+                return preg_match('/backend_([^_]+)_menu/', $name);
+            });
+
+            foreach ($menuKeys as $key) {
+                Menu::handler($key)->addClass('nav');
+            }
         }
     ]
 ];
