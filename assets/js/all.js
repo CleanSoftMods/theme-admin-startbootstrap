@@ -11527,65 +11527,11 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-;(function ($, window, document, undefined) {
-
-    var pluginName = "metisMenu",
-        defaults = {
-            toggle: true
-        };
-        
-    function Plugin(element, options) {
-        this.element = element;
-        this.settings = $.extend({}, defaults, options);
-        this._defaults = defaults;
-        this._name = pluginName;
-        this.init();
-    }
-
-    Plugin.prototype = {
-        init: function () {
-
-            var $this = $(this.element),
-                $toggle = this.settings.toggle;
-
-            $this.find('li.active').has('ul').children('ul').addClass('collapse in');
-            $this.find('li').not('.active').has('ul').children('ul').addClass('collapse');
-
-            $this.find('li').has('ul').children('a').on('click', function (e) {
-                e.preventDefault();
-
-                $(this).parent('li').toggleClass('active').children('ul').collapse('toggle');
-
-                if ($toggle) {
-                    $(this).parent('li').siblings().removeClass('active').children('ul.in').collapse('hide');
-                }
-            });
-        }
-    };
-
-    $.fn[ pluginName ] = function (options) {
-        return this.each(function () {
-            if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" + pluginName, new Plugin(this, options));
-            }
-        });
-    };
-
-})(jQuery, window, document);
-
-//Collapses the sidebar on window resize
-$(function() {
-
-    $(window).bind("resize", function() {
-        if ($(this).width() < 768) {
-            $('div.sidebar-collapse').addClass('collapse');
-        } else {
-            $('div.sidebar-collapse').removeClass('collapse');
-        }
-    });
-});
-
 (function($) {
+    // add support for csrf header
+    jQuery.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+
+    // init bootstrap, we'll do this after any ajax requests too, so tooltips etc work
     initBS();
     $( document ).ajaxSuccess(function( event, request, settings ) {
         initBS();
@@ -11663,86 +11609,62 @@ parseUri.options = {
     }
 };
 
-(function($) {
-    // support csrf header
-    jQuery.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+;(function ($, window, document, undefined) {
 
-    initBS();
-    $( document ).ajaxSuccess(function( event, request, settings ) {
-        initBS();
-    });
+    var pluginName = "metisMenu",
+        defaults = {
+            toggle: true
+        };
+        
+    function Plugin(element, options) {
+        this.element = element;
+        this.settings = $.extend({}, defaults, options);
+        this._defaults = defaults;
+        this._name = pluginName;
+        this.init();
+    }
 
-    // close the popovers when you click outside the popover
-    $(':not(#anything)').on('click', function (e) {
-        $('[data-toggle="popover"]').each(function () {
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('[data-toggle="popover"]').has(e.target).length === 0) {
-                $(this).popover('hide');
-                return;
-            }
-        });
-    });
+    Plugin.prototype = {
+        init: function () {
 
-    /**
-     * @code example:
-     *
-     *  __selector('html.ReportsController.create', function(element) {
-     *      // this is only ran when <html class="ReportsController create"> exists
-     *      // and element will be the html element (that we passed in above)
-     *  });
-    **/
-    window.__selector = function(selector, closure) {
-        jQuery(document).ready(function() {
-            if (jQuery(selector).length && typeof closure !== 'undefined') {
-                closure(jQuery(selector));
+            var $this = $(this.element),
+                $toggle = this.settings.toggle;
+
+            $this.find('li.active').has('ul').children('ul').addClass('collapse in');
+            $this.find('li').not('.active').has('ul').children('ul').addClass('collapse');
+
+            $this.find('li').has('ul').children('a').on('click', function (e) {
+                e.preventDefault();
+
+                $(this).parent('li').toggleClass('active').children('ul').collapse('toggle');
+
+                if ($toggle) {
+                    $(this).parent('li').siblings().removeClass('active').children('ul.in').collapse('hide');
+                }
+            });
+        }
+    };
+
+    $.fn[ pluginName ] = function (options) {
+        return this.each(function () {
+            if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" + pluginName, new Plugin(this, options));
             }
         });
     };
-})(window.jQuery);
 
-function initBS(){
+})(jQuery, window, document);
 
-    if( jQuery('[data-toggle="dropdown"]').length ){
-        jQuery('[data-toggle="dropdown"]').dropdown();
-    }
-    if( jQuery('[data-toggle="tooltip"]').length ){
-        jQuery('[data-toggle="tooltip"]').tooltip();
-    }
-    if( jQuery('[data-toggle="popover"]').length ){
-        jQuery('[data-toggle="popover"]').popover({
-            html: true,
-            trigger: 'hover'
-        });
-    }
-}
+//Collapses the sidebar on window resize
+$(function() {
 
-
-function parseUri (str) {
-    var o   = parseUri.options,
-        m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
-        uri = {},
-        i   = 14;
-
-    while (i--) uri[o.key[i]] = m[i] || "";
-
-    uri[o.q.name] = {};
-    uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-        if ($1) uri[o.q.name][$1] = $2;
+    $(window).bind("resize", function() {
+        if ($(this).width() < 768) {
+            $('div.sidebar-collapse').addClass('collapse');
+        } else {
+            $('div.sidebar-collapse').removeClass('collapse');
+        }
     });
-
-    return uri;
-}
-
-parseUri.options = {
-    strictMode: true,
-    key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
-    q:   {
-        name:   "queryKey",
-        parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-    },
-    parser: {
-        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-        loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-    }
-};
+});
 
 //# sourceMappingURL=all.js.map
