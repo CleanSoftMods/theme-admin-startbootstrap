@@ -17,6 +17,7 @@ elixir(function(mix) {
         'assets/vendor/jquery/dist/jquery.js',
         'assets/vendor/bootstrap/dist/js/bootstrap.js',
         '../../../resources/assets/js/init.js',
+        'assets/vendor/jquery-ujs/src/rails.js',
         'assets/js/jquery.metisMenu.js',
         'assets/js/sb-admin.js'
     ], null, 'resources');
