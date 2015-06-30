@@ -3,9 +3,9 @@
         @if( isset($actions['header']) && count($actions['header']) )
         <div class="actions-menu pull-right">
             @foreach($actions['header'] as $btn)
-            <a class="{{ $btn['btn-class'] }}" href="{{ $btn['btn-link'] }}">
-                <span class="btn-label"><i class="{{ $btn['btn-icon'] }}"></i></span><span>{{ $btn['btn-text'] }}</span>
-            </a>
+
+                {!! build_helper_button($btn) !!}
+
             @endforeach
         </div>
         @endif
