@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name'    => 'default_admin',
+    'name' => 'default_admin',
     'inherit' => 'default',
 
     'events' => [
@@ -30,6 +30,12 @@ return [
 
         // add dropdown-menu classes and such for the bootstrap toggle
         'beforeRenderTheme' => function ($theme) {
+            $navService = (new \Cms\Modules\Core\Services\NavigationService());
+
+            // grab the navigations
+            $navService->boot();
+
+            // theme specific nav stuff
             Menu::handler('backend_sidebar')->addClass('nav')->id('side-menu');
 
             Menu::handler('backend_sidebar')
@@ -49,19 +55,6 @@ return [
                     }
                 });
 
-            // grab the inline navs
-            $menuKeys = [];
-            foreach (get_array_column(config('cms'), 'menus') as $module => $menus) {
-                $menuKeys = array_merge($menuKeys, array_keys($menus));
-            }
-            $menuKeys = array_unique($menuKeys);
-            $menuKeys = array_filter($menuKeys, function ($name) {
-                return preg_match('/backend_([^_]+)_menu/', $name);
-            });
-
-            foreach ($menuKeys as $key) {
-                Menu::handler($key)->addClass('nav');
-            }
-        }
-    ]
+        },
+    ],
 ];
