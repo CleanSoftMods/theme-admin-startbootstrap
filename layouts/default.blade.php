@@ -4,12 +4,12 @@
 <body class="{{ $currentRoute or '' }}">
 
 <div id="wrapper">
-    {!! Theme::partial('theme.header') !!}
+  {!! Theme::partial('theme.header') !!}
 
-    <div id="page-wrapper">
-        {!! Theme::partial('theme.inside-header') !!}
-        @yield('layout-content')
-    </div>
+  <div id="page-wrapper">
+    {!! Theme::partial('theme.inside-header') !!}
+    @yield('layout-content')
+  </div>
 </div>
 
 {!! Theme::partial('theme.modal') !!}

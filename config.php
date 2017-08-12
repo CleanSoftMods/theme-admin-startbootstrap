@@ -1,13 +1,10 @@
 <?php
-
 return [
-    'name' => 'default_admin',
+    'name' => 'default_startbootstrap',
     'inherit' => 'default',
-
     'events' => [
         'before' => function ($theme) {
-            $theme->setTitle(config('app.name').' Admin Panel');
-
+            $theme->setTitle(config('app.name') . ' AdminCP');
             // Breadcrumb template.
             $theme->breadcrumb()->setTemplate(
                 '<ol class="breadcrumb">
@@ -21,23 +18,18 @@ return [
                 </ol>'
             );
         },
-
         'asset' => function ($theme) {
             $themeName = config('cms.core.app.themes.backend');
-            $theme->add('css', 'themes/'.$themeName.'/css/app.css');
-            $theme->add('js', 'themes/'.$themeName.'/js/all.js');
+            $theme->add('css', 'themes/' . $themeName . '/css/app.css');
+            $theme->add('js', 'themes/' . $themeName . '/js/all.js');
         },
-
         // add dropdown-menu classes and such for the bootstrap toggle
         'beforeRenderTheme' => function ($theme) {
             $navService = (new \Cms\Modules\Core\Services\NavigationService());
-
             // grab the navigations
             $navService->boot();
-
             // theme specific nav stuff
             Menu::handler('backend_sidebar')->addClass('nav')->id('side-menu');
-
             Menu::handler('backend_sidebar')
                 ->getAllItemLists()
                 ->map(function ($itemList) {
@@ -45,7 +37,6 @@ return [
                         $itemList->addClass('nav nav-second-level');
                     }
                 });
-
             // add dropdown class to the li if the set has children
             Menu::handler('backend_sidebar')
                 ->getItemsByContentType('Menu\Items\Contents\Link')
